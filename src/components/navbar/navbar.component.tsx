@@ -6,27 +6,14 @@ import { TiThMenu } from "react-icons/ti";
 import { TiTimes } from "react-icons/ti";
 
 import { Quantico } from "next/font/google";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const quantico = Quantico({ weight: ["400", "700"], subsets: ["latin"] });
 
 export const Navbar = () => {
   const [openMobileMenu, setOpenMobileMenu] = useState<boolean>(false);
-  const [width, setWidth] = useState(0);
-  
-  // set window width
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
 
-    window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [width, setWidth]);
+  const { width } = useMediaQuery()
 
   const handleOpenMobileMenu = () => {
     console.log("opened");
@@ -42,7 +29,6 @@ export const Navbar = () => {
     : "-translate-x-full opacity-0"; // Menu hidden
 
   return (
-    <div className="bg-slate-200">
       <div
         className={`flex items-center justify-between p-5 ${quantico.className} w-4/5 m-auto`}
       >
@@ -98,6 +84,5 @@ export const Navbar = () => {
           </nav>
         )}
       </div>
-    </div>
   );
 };
